@@ -1,19 +1,13 @@
-class Organizm:
+from swiat import Swiat
+class Organizm(Swiat):
 
-    def __init__(self, sila, inicjatywa, x, y, swiat):
+
+    def __init__(self, sila, inicjatywa, x, y):
         self.sila = sila
         self.inicjatywa = inicjatywa
         self.x = x
         self.y = y
-        self.swiat = swiat
 
-    def akcja(self):
-
-
-    def kolizja(self):
-
-
-    def rysowanie(self):
 
 
 

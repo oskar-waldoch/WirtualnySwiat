@@ -9,4 +9,4 @@ class Swiat:
     def rysujSwiat(self):
 
 
-    
+
