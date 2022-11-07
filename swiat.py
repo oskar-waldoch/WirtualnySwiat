@@ -1,12 +1,8 @@
 class Swiat:
 
     def __init__(self):
+        self.organisms = []
 
-
-    def wykonajTure(self):
-
-
-    def rysujSwiat(self):
 
 
 

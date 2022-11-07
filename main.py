@@ -1,7 +1,9 @@
 import sys
 import pygame
-from zwierze import *
-from random import *
+import zwierze
+import random
+
+
 gridSize = int(input("Podaj "))
 
 pygame.init()
@@ -15,9 +17,6 @@ pygame.display.set_caption("Wirtualny Swiat")
 
 # Clock
 clock = pygame.time.Clock()
-
-
-center = WIN.get_rect().center
 
 
 # MainGame window
@@ -37,13 +36,9 @@ for row in range(gridSize):
     for column in range(gridSize):
         grid[row].append(0)
 
-swiat = Swiat()
 
-wilk1 = Wilk()
-wilk1.x = randrange(gridSize)
-wilk1.y = randrange(gridSize)
 
-grid[wilk1.x][wilk1.y] = wilk1
+####grid[wilk1.x][wilk1.y] = wilk1
 
 
 def main():

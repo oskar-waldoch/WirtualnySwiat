@@ -7,8 +7,8 @@ class Zwierze(Organizm):
 
 
 class Wilk(Zwierze):
-    Zwierze.sila = 9
-    Zwierze.inicjatywa = 5
+    sila = 9
+    inicjatywa = 5
 
 
 class Owca(Zwierze):

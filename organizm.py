@@ -1,6 +1,9 @@
-from swiat import Swiat
-class Organizm(Swiat):
+from swiat import *
 
+
+class Organizm(Swiat):
+    sila = 0
+    inicjatywa = 0
 
     def __init__(self, sila, inicjatywa, x, y):
         self.sila = sila
