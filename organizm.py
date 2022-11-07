@@ -16,3 +16,4 @@ class Organizm:
     def rysowanie(self):
 
 
+
