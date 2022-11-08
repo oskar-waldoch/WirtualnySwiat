@@ -27,6 +27,8 @@ class Grid:
 
     def updateGrid(self):
 
+        
+
         for row in range(self.gridSize):
             for column in range(self.gridSize):
                 if self.gridList[row][column] == " wilk1":
