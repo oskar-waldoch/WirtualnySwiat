@@ -64,7 +64,7 @@ gridList1 = grid1.gridList
 
 wilk1 = Wilk(5, 5, randrange(20), randrange(20))
 
-gridList1[wilk1.x][wilk1.y] = " wilk1"
+gridList1[wilk1.pos_x][wilk1.pos_y] = " wilk1"
 
 def main():
 
@@ -79,7 +79,6 @@ def main():
     while True:
         dt = clock.tick(60)/1000.0
         grid1.updateGrid()
-        
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -87,7 +86,11 @@ def main():
                 sys.exit()
             if event.type == pygame_gui.UI_BUTTON_PRESSED:
               if event.ui_element == button_nextTurn:
-                  print('Test')
+                    gridList1[wilk1.pos_x][wilk1.pos_y] = 0
+                    wilk1.akcja()
+                    gridList1[wilk1.pos_x][wilk1.pos_y] = " wilk1"
+                    grid1.updateGrid()
+                    print(wilk1.pos_x, wilk1.pos_y)
 
             manager.process_events(event)
         manager.update(dt)
