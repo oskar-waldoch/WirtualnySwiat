@@ -1,4 +1,6 @@
 import pygame 
+from swiat import Swiat
+
 
 class Grid:
 
@@ -26,13 +28,19 @@ class Grid:
                     * row + self.gridMargin,self.gridWidth,self.gridHeight])
 
     def updateGrid(self):
+        '''
+        Wilk - colors[2], Owca - colors[3], Pies - colors[4], Leniwiec - colors[5], Zmija - colors[6]
 
-        
+        '''
 
         for row in range(self.gridSize):
             for column in range(self.gridSize):
                 if self.gridList[row][column] == " wilk1":
                     pygame.draw.rect(self.screen, self.colors[2], [(self.gridMargin + self.gridWidth)
+                    * column + self.gridMargin,(self.gridMargin + self.gridHeight)
+                    * row + self.gridMargin,self.gridWidth,self.gridHeight])
+                elif self.gridList[row][column] == " owca1":
+                    pygame.draw.rect(self.screen, self.colors[3], [(self.gridMargin + self.gridWidth)
                     * column + self.gridMargin,(self.gridMargin + self.gridHeight)
                     * row + self.gridMargin,self.gridWidth,self.gridHeight])
                 else: 

@@ -6,23 +6,7 @@ class Zwierze(Organizm):
     sila = Organizm.sila
     inicjatywa = Organizm.inicjatywa
 
-    def akcja( Organizm):
-
-        move = random.randrange(1,4)
-
-        match move:
-            case 1:
-                Organizm.pos_x += 1
-            case 2:
-                Organizm.pos_x -= 1
-            case 3:
-                Organizm.pos_y += 1
-            case 4:
-                Organizm.pos_y -= 1
-
-
-
-
+    
 class Wilk(Zwierze):
     Zwierze.sila = 9
     Zwierze.inicjatywa = 5
