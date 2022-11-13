@@ -72,9 +72,10 @@ wilk1 = Wilk(5, 5, randrange(20), randrange(20))
 owca1 = Owca(10, 10, randrange(20), randrange(20))
 
 
+#attributes = [organism.pos_x for organism in Swiat.organisms]
+
 gridList1[wilk1.pos_x][wilk1.pos_y] = " wilk1"
 gridList1[owca1.pos_x][owca1.pos_y] = " owca1"
-
 
 
 def main():
@@ -92,6 +93,7 @@ def main():
 
     print('\n'.join([''.join(['{:4}'.format(item) for item in row]) for row in gridList1]))
 
+
     while True:
 
         dt = clock.tick(60)/1000.0
@@ -107,14 +109,10 @@ def main():
                     gridList1[wilk1.pos_x][wilk1.pos_y] = 0
                     gridList1[owca1.pos_x][owca1.pos_y] = 0
 
-                    list(map(lambda x: x.akcja(), Swiat.organisms))
+                    list(map(lambda organism: organism.akcja(), Swiat.organisms))
 
                     gridList1[wilk1.pos_x][wilk1.pos_y] = " wilk1"
                     gridList1[owca1.pos_x][owca1.pos_y] = " owca1"
-
-                    print(wilk1.pos_x, wilk1.pos_y)
-                    print(owca1.pos_x, owca1.pos_y)
-
 
                     grid1.updateGrid()
 

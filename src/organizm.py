@@ -1,4 +1,6 @@
 from swiat import *
+import random
+from grid import Grid
 
 
 class Organizm(Swiat):
@@ -14,6 +16,29 @@ class Organizm(Swiat):
         self.pos_y = pos_y
         Swiat.organisms.append(self)
 
-    
+    def akcja(Organizm):
+
+        if Organizm.pos_x == 19:
+            move = random.choice([2, 3, 4])
+        elif Organizm.pos_y == 19:
+            move = random.choice([1, 2, 3])
+        elif Organizm.pos_x == 0:
+            move = random.choice([1, 2, 4])
+        elif Organizm.pos_y == 0:
+            move = random.choice([1, 3, 4])
+        elif Organizm.pos_y == 0 and Organizm.pos_x:
+            move = random.choice([1, 2])
+        else: 
+            move = random.randrange(1,4)
+
+        match move:
+            case 1:
+                Organizm.pos_x += 1
+            case 2:
+                Organizm.pos_y -= 1
+            case 3:
+                Organizm.pos_x -= 1
+            case 4:
+                Organizm.pos_y += 1
 
 
