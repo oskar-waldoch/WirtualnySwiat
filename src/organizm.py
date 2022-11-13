@@ -12,7 +12,8 @@ class Organizm(Swiat):
         self.inicjatywa = inicjatywa
         self.pos_x = pos_x
         self.pos_y = pos_y
+        Swiat.organisms.append(self)
 
-
+    
 
 
