@@ -46,6 +46,17 @@ class Organizm(Swiat):
 
     def kolizja(self, other):
 
+        if self.pos_x == other.pos_x and self.pos_y == other.pos_y:
+            print("ta sama pozycja")
+            if self.sila > other.sila:
+                print(str(self.typ), "jest lepszy od", str(other.typ))
+            elif self.sila < other.sila:
+                print(str(self.typ), "jest słabszy od", str(other.typ))
+            
+
+
+
+        '''
         if len(Swiat.organisms) > 1:
             if self.pos_x == other.pos_x and self.pos_y == other.pos_y:
                 if self.sila > other.sila:
@@ -53,9 +64,9 @@ class Organizm(Swiat):
                     print("Usunięto słabszego - 1")
                     Swiat.organisms.remove(other)
                 else :
+                        Swiat.organisms.remove(self)
                         Grid.gridList[other.pos_x][other.pos_y] = other.typ
                         print(other.typ)
-                        Swiat.organisms.remove(self)
                         print("usunięto słabszego - 2")
             else:
                 Grid.gridList[self.pos_x][self.pos_y] = self.typ
@@ -63,7 +74,7 @@ class Organizm(Swiat):
                 print("usunięto nikogo - 3")
         else:
             Grid.gridList[self.pos_x][self.pos_y] = self.typ
-
+        '''
 
 
 

@@ -24,16 +24,16 @@ pygame.display.set_caption("Wirtualny Swiat")
 
 # Font
 def get_font(size):
-    return pygame.font.Font("font.ttf", size)
+    return pygame.font.Font("./assets/dDicapslock.ttf", size)
 
 # Colors
 white = (255, 255, 255)
 black = (0, 0, 0)
-red = (255, 0, 0) # Wilk
-orchid = (177, 74, 237) # Owca
-tea_green = (204, 232, 204) # Pies
-tangerine = (255, 155, 133) # Leniwiec
-patriarch = (115, 0, 113) # Zmija
+red = (255, 0, 0)
+orchid = (177, 74, 237)
+tea_green = (204, 232, 204)
+tangerine = (255, 155, 133)
+patriarch = (115, 0, 113)
 colors = [white, black, red, orchid, tea_green, tangerine, patriarch]
 
 # Clock
@@ -59,54 +59,39 @@ button_nextTurn = pygame_gui.elements.UIButton(relative_rect=button_layout_rect,
 GRID_MARGIN = 1
 GRID_WIDTH = (simulation.get_width() - (gridSize * GRID_MARGIN)) / gridSize
 GRID_HEIGHT = (simulation.get_height() - (gridSize * GRID_MARGIN)) / gridSize
-gridList = []
 
 # Grid instance
 grid1 = Grid(simulation, gridSize, GRID_MARGIN, GRID_WIDTH, GRID_HEIGHT, colors)
 grid1.createGrid()
-gridList1 = grid1.gridList
 
 # Initialize objects
 world = Swiat()
 #wilk1 = Wilk(5, 5, randrange(20), randrange(20))
 #owca1 = Owca(10, 10, randrange(20), randrange(20))
 
-wilk1 = Wilk(" wilk", 5, 5, 5, 5)
-owca1 = Owca(" owca", 10, 10, 5, 5)
-owca2 = Owca(" owca", 15, 10, 15, 15)
-
-
-
-#attributes = [organism.pos_x for organism in Swiat.organisms]
-
-#gridList1[wilk1.pos_x][wilk1.pos_y] = " wilk1"
-#gridList1[owca1.pos_x][owca1.pos_y] = " owca1"
-
+wilk1 = Wilk(" wilk", 10, 5, 5, 5)
+owca1 = Owca(" owca", 5, 10, 5, 5)
+#owca2 = Owca(" owca", 15, 10, 15, 15)
 
 
 def main():
 
-
-    MAIN_TITLE_TEXT = get_font(35).render("Wirtualny Swiat", True, white)
-    MAIN_TITLE_RECT = MAIN_TITLE_TEXT.get_rect(center=(600, 100))
+    main_title_text = get_font(35).render("Wirtualny Swiat", True, white)
+    main_title_rect = main_title_text.get_rect(center=(600, 100))
 
     authors_text= get_font(15).render("Oskar-Waldoch-29, Dawid-Kit-11", True, white)
     authors_rect = authors_text.get_rect(center=(1070, 780))
 
-
-    WINDOW.blit(MAIN_TITLE_TEXT, MAIN_TITLE_RECT)
+    WINDOW.blit(main_title_text, main_title_rect)
     WINDOW.blit(authors_text, authors_rect)
 
-    print('\n'.join([''.join(['{:4}'.format(item) for item in row]) for row in gridList1]))
-
+    print('\n'.join([''.join(['{:4}'.format(item) for item in row]) for row in grid1.gridList]))
 
     print(Swiat.organisms)
 
     while True:
 
         dt = clock.tick(60)/1000.0
-
-
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -120,20 +105,15 @@ def main():
 
                     owca1.pos_x = 5
                     owca1.pos_y = 5
-                    #gridList1[owca1.pos_x][owca1.pos_y] = 0
 
+                    # The problems is here below. This shits breaks everything. If we were to call the kolizja() function
+                    # of every animal instance manualy, it works fantastically.
                     list(map(lambda organism: organism.kolizja(organism), Swiat.organisms))
-
-                    list(map(lambda organism: organism.akcja(), Swiat.organisms))
-
-                    #gridList1[wilk1.pos_x][wilk1.pos_y] = " wilk1"
-                    #gridList1[owca1.pos_x][owca1.pos_y] = " owca1"
-
-                    #list(map(lambda organism: organism.kolizja(organism), Swiat.organisms))
+                    
+                    #list(map(lambda organism: organism.akcja(), Swiat.organisms))
 
                     grid1.updateGrid()
 
-                    list(map(lambda organism: print(organism.pos_x, organism.pos_y), Swiat.organisms))
                     print(Swiat.organisms)
 
             manager.process_events(event)
