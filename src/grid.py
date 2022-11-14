@@ -4,6 +4,8 @@ from swiat import Swiat
 
 class Grid:
 
+    gridList = []
+
     def __init__(self, screen, gridSize, gridMargin, gridWidth, gridHeight, colors):
         self.screen = screen
         self.gridSize = gridSize
@@ -11,10 +13,9 @@ class Grid:
         self.gridWidth = gridWidth
         self.gridHeight = gridHeight
         self.colors = colors
-        self.gridList = []
+
 
     def createGrid(self):
-        self.gridList = []
 
         for row in range(self.gridSize):
             self.gridList.append([])
@@ -35,11 +36,11 @@ class Grid:
 
         for row in range(self.gridSize):
             for column in range(self.gridSize):
-                if self.gridList[row][column] == " wilk1":
+                if self.gridList[row][column] == " wilk":
                     pygame.draw.rect(self.screen, self.colors[2], [(self.gridMargin + self.gridWidth)
                     * column + self.gridMargin,(self.gridMargin + self.gridHeight)
                     * row + self.gridMargin,self.gridWidth,self.gridHeight])
-                elif self.gridList[row][column] == " owca1":
+                elif self.gridList[row][column] == " owca":
                     pygame.draw.rect(self.screen, self.colors[3], [(self.gridMargin + self.gridWidth)
                     * column + self.gridMargin,(self.gridMargin + self.gridHeight)
                     * row + self.gridMargin,self.gridWidth,self.gridHeight])
