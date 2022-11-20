@@ -10,10 +10,8 @@ class Organizm(Swiat):
     pos_y = 0
     typ = ""
 
-    def __init__(self, typ, sila, inicjatywa, pos_x, pos_y):
+    def __init__(self, typ, pos_x, pos_y):
         self.typ = typ
-        self.sila = sila
-        self.inicjatywa = inicjatywa
         self.pos_x = pos_x
         self.pos_y = pos_y
         Swiat.organisms.append(self)
@@ -44,17 +42,27 @@ class Organizm(Swiat):
                 Organizm.pos_y += 1
 
 
+
     def kolizja(self, other):
 
-        if self.pos_x == other.pos_x and self.pos_y == other.pos_y:
-            print("ta sama pozycja")
-            if self.sila > other.sila:
-                print(str(self.typ), "jest lepszy od", str(other.typ))
-            elif self.sila < other.sila:
-                print(str(self.typ), "jest słabszy od", str(other.typ))
-            
 
-
+        if self == other:
+            pass
+            if self.pos_x == other.pos_x and self.pos_y == other.pos_y:
+                print(str(self.typ) + " ta sama pozycja jak " + str(other.typ))
+                if self.sila > other.sila:
+                    print(str(self.typ), "jest lepszy od", str(other.typ))
+                    print(str(self.pos_x), str(self.pos_y))
+                    Grid.gridList[self.pos_x][self.pos_y] = self.typ
+                    print("Usunięto słabszego - 1")
+                elif self.sila < other.sila:
+                    print(str(self.typ), "jest słabszy od", str(other.typ))
+                    Grid.gridList[other.pos_x][other.pos_y] = other.typ
+            else:
+                Grid.gridList[self.pos_x][self.pos_y] = self.typ
+                Grid.gridList[other.pos_x][other.pos_y] = other.typ
+        else:
+            print("brak kolizji")
 
         '''
         if len(Swiat.organisms) > 1:
@@ -77,4 +85,6 @@ class Organizm(Swiat):
         '''
 
 
+    def rysowanie(Organizm):
 
+        Grid.gridList[Organizm.pos_x][Organizm.pos_y] = Organizm.typ
