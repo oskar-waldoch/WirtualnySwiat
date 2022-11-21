@@ -10,28 +10,32 @@ class Organizm(Swiat):
     pos_y = 0
     typ = ""
 
-    def __init__(self, typ, sila, inicjatywa, pos_x, pos_y):
+    def __init__(self, typ, pos_x, pos_y):
         self.typ = typ
-        self.sila = sila
-        self.inicjatywa = inicjatywa
         self.pos_x = pos_x
         self.pos_y = pos_y
         Swiat.organisms.append(self)
 
     def akcja(Organizm):
 
-        if Organizm.pos_x == 19:
-            move = random.choice([2, 3, 4])
+        if Organizm.pos_x == Grid.gridSize-1 and Organizm.pos_y == Grid.gridSize-1:
+            move = random.choice([2, 3])
         elif Organizm.pos_y == 0 and Organizm.pos_x == 0:
+            move = random.choice([1, 4])
+        elif Organizm.pos_y == Grid.gridSize-1 and Organizm.pos_x == 0:
             move = random.choice([1, 2])
-        elif Organizm.pos_y == 19:
+        elif Organizm.pos_y == 0 and Organizm.pos_x == Grid.gridSize-1:
+            move = random.choice([3, 4])
+        elif Organizm.pos_x == Grid.gridSize-1:
+            move = random.choice([2, 3, 4])
+        elif Organizm.pos_y == Grid.gridSize-1:
             move = random.choice([1, 2, 3])
         elif Organizm.pos_x == 0:
             move = random.choice([1, 2, 4])
         elif Organizm.pos_y == 0:
             move = random.choice([1, 3, 4])
         else: 
-            move = random.randrange(1,4)
+            move = random.choice([1, 2, 3, 4])
 
         match move:
             case 1:
@@ -44,17 +48,27 @@ class Organizm(Swiat):
                 Organizm.pos_y += 1
 
 
+
     def kolizja(self, other):
 
-        if self.pos_x == other.pos_x and self.pos_y == other.pos_y:
-            print("ta sama pozycja")
-            if self.sila > other.sila:
-                print(str(self.typ), "jest lepszy od", str(other.typ))
-            elif self.sila < other.sila:
-                print(str(self.typ), "jest słabszy od", str(other.typ))
-            
 
-
+        if self == other:
+            pass
+            if self.pos_x == other.pos_x and self.pos_y == other.pos_y:
+                print(str(self.typ) + " ta sama pozycja jak " + str(other.typ))
+                if self.sila > other.sila:
+                    print(str(self.typ), "jest lepszy od", str(other.typ))
+                    print(str(self.pos_x), str(self.pos_y))
+                    Grid.gridList[self.pos_x][self.pos_y] = self.typ
+                    print("Usunięto słabszego - 1")
+                elif self.sila < other.sila:
+                    print(str(self.typ), "jest słabszy od", str(other.typ))
+                    Grid.gridList[other.pos_x][other.pos_y] = other.typ
+            else:
+                Grid.gridList[self.pos_x][self.pos_y] = self.typ
+                Grid.gridList[other.pos_x][other.pos_y] = other.typ
+        else:
+            print("brak kolizji")
 
         '''
         if len(Swiat.organisms) > 1:
@@ -77,4 +91,6 @@ class Organizm(Swiat):
         '''
 
 
+    def rysowanie(Organizm):
 
+        Grid.gridList[Organizm.pos_x][Organizm.pos_y] = Organizm.typ
