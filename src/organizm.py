@@ -1,6 +1,8 @@
 from swiat import *
 import random
 from grid import Grid
+import zwierze
+
 
 
 class Organizm(Swiat):
@@ -10,28 +12,32 @@ class Organizm(Swiat):
     pos_y = 0
     typ = ""
 
-    def __init__(self, typ, sila, inicjatywa, pos_x, pos_y):
+    def __init__(self, typ, pos_x, pos_y):
         self.typ = typ
-        self.sila = sila
-        self.inicjatywa = inicjatywa
         self.pos_x = pos_x
         self.pos_y = pos_y
         Swiat.organisms.append(self)
 
     def akcja(Organizm):
 
-        if Organizm.pos_x == 19:
-            move = random.choice([2, 3, 4])
+        if Organizm.pos_x == Grid.gridSize-1 and Organizm.pos_y == Grid.gridSize-1:
+            move = random.choice([2, 3])
         elif Organizm.pos_y == 0 and Organizm.pos_x == 0:
+            move = random.choice([1, 4])
+        elif Organizm.pos_y == Grid.gridSize-1 and Organizm.pos_x == 0:
             move = random.choice([1, 2])
-        elif Organizm.pos_y == 19:
+        elif Organizm.pos_y == 0 and Organizm.pos_x == Grid.gridSize-1:
+            move = random.choice([3, 4])
+        elif Organizm.pos_x == Grid.gridSize-1:
+            move = random.choice([2, 3, 4])
+        elif Organizm.pos_y == Grid.gridSize-1:
             move = random.choice([1, 2, 3])
         elif Organizm.pos_x == 0:
             move = random.choice([1, 2, 4])
         elif Organizm.pos_y == 0:
             move = random.choice([1, 3, 4])
         else: 
-            move = random.randrange(1,4)
+            move = random.choice([1, 2, 3, 4])
 
         match move:
             case 1:
@@ -43,38 +49,58 @@ class Organizm(Swiat):
             case 4:
                 Organizm.pos_y += 1
 
+    def kolizja(Organizm):
 
-    def kolizja(self, other):
+        rosliny = [" mlecz"," trawa", " wilczaJagoda"]
+        for x in range(len(Swiat.organisms)):
+            cos = 1
+            for y in range(x+1, len(Swiat.organisms)):
+                #print(len(Swiat.organisms))
+                if Swiat.organisms[x].pos_x == Swiat.organisms[y].pos_x and Swiat.organisms[x].pos_y == Swiat.organisms[y].pos_y and Swiat.organisms[x].typ == Swiat.organisms[y].typ and Swiat.organisms[x].typ not in rosliny:
+                    if Grid.gridList[Swiat.organisms[x].pos_x] != 0 and Grid.gridList[Swiat.organisms[y].pos_y] != 0:
+                        cos = 2
+                        match Swiat.organisms[x].typ:
+                            case " owca":
+                                zwierze.Owca(" owca", Swiat.organisms[x].pos_x + cos, Swiat.organisms[x].pos_y)
+                            case " wilk":
+                                zwierze.Wilk(" wilk", Swiat.organisms[x].pos_x + cos, Swiat.organisms[x].pos_y)
+                            case " pies":
+                                zwierze.Pies(" pies", Swiat.organisms[x].pos_x + cos, Swiat.organisms[x].pos_y)
+                            case " zmija":
+                                zwierze.Zmija(" zmija", Swiat.organisms[x].pos_x + cos, Swiat.organisms[x].pos_y)
+                    else:
+                        match Swiat.organisms[x].typ:
+                            case " owca":
+                                zwierze.Owca(" owca", Swiat.organisms[x].pos_x + cos, Swiat.organisms[x].pos_y)
+                            case " wilk":
+                                zwierze.Wilk(" wilk", Swiat.organisms[x].pos_x + cos, Swiat.organisms[x].pos_y)
+                            case " pies":
+                                zwierze.Pies(" pies", Swiat.organisms[x].pos_x + cos, Swiat.organisms[x].pos_y)
+                            case " zmija":
+                                zwierze.Zmija(" zmija", Swiat.organisms[x].pos_x + cos, Swiat.organisms[x].pos_y)
+        for i in range(1, 10):
+                        for x in range(len(Swiat.organisms)):
+                            for y in range(x+1, len(Swiat.organisms)):
+                                if Swiat.organisms[x].pos_x == Swiat.organisms[y].pos_x and Swiat.organisms[x].pos_y == Swiat.organisms[y].pos_y:
+                                    #print(str(Swiat.organisms[x]) + " ta sama pozycja co " + str(Swiat.organisms[y]))
+                                    if Swiat.organisms[x].typ == " zmija" or Swiat.organisms[y].typ == " zmija" or Swiat.organisms[y].typ == " wilczeJagody" or Swiat.organisms[y].typ == " wilczeJagody":
+                                        if Swiat.organisms[x].sila != Swiat.organisms[y].sila:
+                                            Swiat.organisms.remove(Swiat.organisms[x])
+                                            Swiat.organisms.remove(Swiat.organisms[y])
+                                            break
+                                        else:
+                                            pass
+                                    else:
+                                        if Swiat.organisms[x].sila == Swiat.organisms[y].sila:
+                                            pass
+                                        elif Swiat.organisms[x].sila > Swiat.organisms[y].sila:
+                                            #eventLog.append((str(Swiat.organisms[x].typ) + " (" + str(Swiat.organisms[x].pos_x) + " )" + " zabija " + str(Swiat.organisms[y].typ)))
+                                            Swiat.organisms.remove(Swiat.organisms[y])
+                                            break
+                                        else:
+                                           # eventLog.append(str(Swiat.organisms[y].typ) + " zabija " + str(Swiat.organisms[x].typ))
+                                            Swiat.organisms.remove(Swiat.organisms[x])
+                                            break
+    def rysowanie(Organizm):
 
-        if self.pos_x == other.pos_x and self.pos_y == other.pos_y:
-            print("ta sama pozycja")
-            if self.sila > other.sila:
-                print(str(self.typ), "jest lepszy od", str(other.typ))
-            elif self.sila < other.sila:
-                print(str(self.typ), "jest słabszy od", str(other.typ))
-            
-
-
-
-        '''
-        if len(Swiat.organisms) > 1:
-            if self.pos_x == other.pos_x and self.pos_y == other.pos_y:
-                if self.sila > other.sila:
-                    Grid.gridList[self.pos_x][self.pos_y] = self.typ
-                    print("Usunięto słabszego - 1")
-                    Swiat.organisms.remove(other)
-                else :
-                        Swiat.organisms.remove(self)
-                        Grid.gridList[other.pos_x][other.pos_y] = other.typ
-                        print(other.typ)
-                        print("usunięto słabszego - 2")
-            else:
-                Grid.gridList[self.pos_x][self.pos_y] = self.typ
-                Grid.gridList[other.pos_x][other.pos_y] = other.typ
-                print("usunięto nikogo - 3")
-        else:
-            Grid.gridList[self.pos_x][self.pos_y] = self.typ
-        '''
-
-
-
+        Grid.gridList[Organizm.pos_x][Organizm.pos_y] = Organizm.typ

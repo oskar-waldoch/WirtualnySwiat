@@ -8,25 +8,25 @@ class Zwierze(Organizm):
 
     
 class Wilk(Zwierze):
-    Zwierze.sila = 9
-    Zwierze.inicjatywa = 5
+    sila = 9
+    inicjatywa = 5
 
 
 class Owca(Zwierze):
-    Zwierze.sila = 4
-    Zwierze.inicjatywa = 4
+    sila = 4
+    inicjatywa = 4
 
 
 class Pies(Zwierze):
-    Zwierze.sila = 6
-    Zwierze.inicjatywa = 4
+    sila = 6
+    inicjatywa = 4
 
 
 class Leniwiec(Zwierze):
-    Zwierze.sila = 2
-    Zwierze.inicjatywa = 1
+    sila = 2
+    inicjatywa = 1
 
 
 class Zmija(Zwierze):
-    Zwierze.sila = 2
-    Zwierze.inicjatywa = 3
+    sila = 2
+    inicjatywa = 3
